@@ -4,12 +4,9 @@ import { faker } from '@faker-js/faker';
 describe('Funcionalidade Cadastro', () => {
 
     beforeEach(() => {
-        cy.visit('http://lojaebac.ebaconline.art.br/minha-conta/')
+        cy.visit('minha-conta')
     });
 
-   // afterEach(() => {
-   //      cy.screenshot()
-  //        });
 
     it('Deve completar o cadastro com sucesso', () => {
         cy.get('#reg_email').type(faker.internet.email())
@@ -41,7 +38,10 @@ describe('Funcionalidade Cadastro', () => {
         cy.get('.woocommerce-message').should('contain', 'Detalhes da conta modificados')
     
     });
-   
-   
+
+    it('Deve completar o cadastro com sucesso - Usando comando customizado', () => {
+        cy.preCadastro(faker.internet.email(), 'teste@123', faker.person.firstName(), faker.person.lastName())
+        cy.get('.woocommerce-message').should('contain', 'Detalhes da conta modificados')
+    });
 
 })
